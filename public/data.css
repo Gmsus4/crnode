@@ -103,6 +103,12 @@ body{
     text-align: center;
 }
 
+.header .stats .created{
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
 /* MAIN */
 .main{
     display: flex;

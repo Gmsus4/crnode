@@ -9,7 +9,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;500&display=swap" rel="stylesheet">
     <style>
         .header{
-            width: 70%;
+            width: 100%;
             margin: 0 auto;
             height: 350px;
             background: linear-gradient(to right, rgba(7, 7, 7, 1) 10%, rgba(7, 7, 7, 0.5) 90%), linear-gradient(to bottom, rgba(7, 7, 7, 0) 80%, rgba(7, 7, 7, 1) 100%), url('<%= url.imgBanner %>') no-repeat 70px 0%;
@@ -29,6 +29,12 @@
                     <img src="https://cdn.statsroyale.com/images/level-big.png" alt="" class="w30">
                     <p class="p"> <%= player.expLevel %> </p>
                 </div>
+            </div>
+            
+            <div class="created">
+                <img src="../img/calendario.png" alt="" class="w30">
+                <% const years = player.badges[0].progress / 365 %>
+                <p>Jugando desde hace <%= Math.floor(years) %> años</p>
             </div>
 
             <p class="titleP">Trofeos</p>
@@ -114,7 +120,7 @@
                         <% } else{ %>
                             <img src="<%= cofresPorVenir.chestUrlSorted[count] %>" alt="">
                             <p class="p">+<%= item.index %></p>
-                            <%= count++ %>
+                            <% count++ %>
                         <% } %>
                     </div>
                 <% } %>  
