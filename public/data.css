@@ -24,6 +24,16 @@ body{
     font-weight: bold; 
 }
 
+.header{
+    width: 85%;
+    margin: 0 auto;
+/*     background-color: burlywood; */
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: inherit;
+}
+
 .header .stats{
     padding: 40px 0;
     height: auto;
@@ -115,15 +125,26 @@ body{
     flex-direction: column;
     align-items: center;
     justify-content: space-evenly;
-    height: calc(100vh - 400px);
 /*     background-color: burlywood; */
+}
+
+.main .currentDeck{
+    width: 70%;
+    margin: 0 auto;
+    margin-top: 70px;
+}
+
+.main .upcomingchests{
+    width: 80%;
+    margin: 0 auto;
+    margin-top: 70px;
 }
 
 .main .currentDeck .currentDeckTitle,
 .main .upcomingchests .upcomingchestsTitle{
     text-align: center;
     margin: 10px 0;
-    padding: 30px 0 0 0;
+    padding: 0 0 0 0;
     color: #2bb0cf;
 /*     background-color: antiquewhite; */
 }
@@ -134,24 +155,31 @@ body{
 }
 
 .main .currentDeck .currentDeckImg{
+/*     background-color: #2bb0cf; */
     display: grid;
-    grid-template-columns: repeat(8, 1fr);
-    grid-template-rows: 1fr;
+    grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+    justify-content: center;
+    justify-items: center;
+    margin-top: 20px;
 }
 
 .main .currentDeck .currentDeckImg img{
     width: 120px;
 }
 
-.main .upcomingchests .upcomingchestsImg div:nth-child(1){
+.main .upcomingchests .upcomingchestsImg .chestsItem .firstImg{
     border: 3px solid #0089ff;
     border-radius: 10px;
 }
 
 .main .upcomingchests .upcomingchestsImg{
     display: grid;
-    grid-template-columns: repeat(15, 1fr);
+    grid-template-columns: repeat(auto-fit, minmax(90px, 1fr));
+    justify-content: center;
+    justify-items: center;
     gap: 10px;
+    margin-top: 20px;
+/*     background-color: violet; */
 }
 
 .main .upcomingchests .upcomingchestsImg img{
@@ -173,4 +201,47 @@ body{
     background-color: #0089ff;
     border-radius: 30px;
     padding: 5px;
+}
+
+@media (max-width: 1367px){
+    .main .currentDeck .currentDeckImg{
+        grid-template-columns: repeat(4, 1fr);
+    }
+}
+
+@media (max-width: 538px){
+    .main .currentDeck .currentDeckImg{
+        grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+    }
+
+    .header .clan .clanName{
+        display: none;
+    }
+
+    .header .clan .clanImg{
+        display: none;
+    }
+
+    .header h2{
+        font-size: 40px;
+    }
+}
+
+@media (max-width: 345px){
+    .header{
+        justify-content: center;
+    }
+    .exp img{
+        width: 30px !important;
+    }
+    .exp p{
+        font-size: 16px !important;
+    }
+    .header .stats .name {
+        margin-bottom: 10px;
+        display: flex;
+        align-items: flex-start;
+        gap: 0;
+        flex-direction: column;
+    }
 }

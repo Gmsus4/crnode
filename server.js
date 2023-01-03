@@ -28,8 +28,6 @@ app.get('/search', (req, res) => {
     if (error) {
       console.error(error);
     } else {
-      let entradas = [];
-      let url = null;
       const datosJugador = JSON.parse(body);
       const currentFavouriteCard = datosJugador.currentFavouriteCard.name;
       const currentDeck = datosJugador.currentDeck;
