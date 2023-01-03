@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="data.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;500&display=swap" rel="stylesheet">
+    <style>
+        .header{
+            width: 70%;
+            margin: 0 auto;
+            height: 350px;
+            background: linear-gradient(to right, rgba(7, 7, 7, 1) 10%, rgba(7, 7, 7, 0.5) 90%), linear-gradient(to bottom, rgba(7, 7, 7, 0) 80%, rgba(7, 7, 7, 1) 100%), url('<%= url.imgBanner %>') no-repeat 70px 0%;
+            background-size: cover;
+            display: flex;
+            align-items: center;
+            justify-content: space-around;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <div class="stats">
+            <div class="name">
+                <h2><%= player.name %></h2>
+                <div class="exp flexGap">
+                    <img src="https://cdn.statsroyale.com/images/level-big.png" alt="" class="w30">
+                    <p class="p"> <%= player.expLevel %> </p>
+                </div>
+            </div>
+
+            <p class="titleP">Trofeos</p>
+
+            <div class="trophies">
+                <div class="trophiesToday flexGap">
+                    <img src="https://cdn.statsroyale.com/images/trophy.png" alt="" class="w30">
+                    <p class="p"> <%= player.trophies %> </p>
+                </div>
+                <div class="bestTrophies flexGap"> 
+                    <img src="https://www.nicepng.com/png/full/30-306641_clash-royale-trophy-imagenes-de-clash-royale-hd.png" alt="" class="w30">
+                    <p class="p"> <%= player.bestTrophies %> </p>
+                </div>
+            </div>
+
+            <p class="titleP">Estadísticas</p>
+
+            <div class="winsLosses">
+                <div class="wins flexGap">
+                    <img src="../img/win.png" alt="" class="w30">
+                    <p class="p"> <%= player.wins %> </p>
+                </div>
+                <div class="losses flexGap">
+                    <img src="../img/loss.png" alt="" class="w30">
+                    <p class="p"> <%= player.losses %> </p>
+                </div>
+            </div>
+            <div class="gameData">
+                <div class="battleCount flexGap">
+                    <img src="https://cdn.statsroyale.com/images/battle.png" alt="" class="w30">
+                    <p class="p"> <%= player.battleCount %> </p>
+                </div>
+                <div class="threeCrownWins flexGap">
+                    <img src="../img/tres_coronas.png" alt="" class="w30">
+                    <p class="p"> <%= player.threeCrownWins %> </p>
+                </div>
+            </div>
+        </div>
+        <div class="clan">
+            <div class="clanImg">
+                <% if(player.clan === undefined){ %>
+                    <img src='https://cdn.statsroyale.com/images/badges/0.png' alt=""> 
+                <% } else{ %>
+                    <img src='https://cdn.statsroyale.com/images/badges/<%= player.clan.badgeId %>.png' alt=""> 
+                <% } %>
+
+            </div>
+            <div class="clanName">
+                <% if(player.clan === undefined){ %>
+                    <p class="p">Sin clan</p>
+                <% } else{ %>
+                    <p class="p"><%= player.clan.name %></p>
+                    <p><%= player.clan.tag %></p>
+                    <p><%= player.clan.tag %></p>
+                <% } %>
+
+            </div>
+        </div>
+    </div>
+    <div class="main">
+        <div class="currentDeck">
+            <div class="currentDeckTitle">
+                <p class="p">Current deck</p>
+                <p>Carta favorita actual — <%= player.currentFavouriteCard.name %></p>
+            </div>
+            <div class="currentDeckImg">
+                <% for(let i = 0; i < 8; i++) { %>
+                    <img src="<%= url.imgCards[i] %>" alt="">
+                <% } %>  
+            </div>
+        </div>
+        <div class="upcomingchests">
+            <div class="upcomingchestsTitle">
+                <p class="p">Próximos Cofres</p>
+            </div>
+            <div class="upcomingchestsImg">
+                <% let count = 1; %>
+                <% for(let item of cofresPorVenir.upcomingChests.items) { %>
+                    <div class="chestsItem">
+                        <% if(item.index === 0){ %>
+                            <img src="<%= cofresPorVenir.chestUrlSorted[0] %>" alt="">
+                            <p class="p">Sig.</p>
+                        <% } else{ %>
+                            <img src="<%= cofresPorVenir.chestUrlSorted[count] %>" alt="">
+                            <p class="p">+<%= item.index %></p>
+                            <%= count++ %>
+                        <% } %>
+                    </div>
+                <% } %>  
+            </div>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,170 @@
+*{
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+body{
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    color: white;
+}
+
+.w30{ /* img */
+    width: 30px;
+}
+
+.flexGap{ /* Div padre > Div hijo */
+    display: flex;
+    gap: 10px;
+}
+
+.p{ /* p */
+    color: white;
+    font-size: 20px;
+    font-weight: bold; 
+}
+
+.header .stats{
+    padding: 40px 0;
+    height: auto;
+}
+
+.header .stats .titleP{
+    color: #2bb0cf;
+    margin-top: 23px;
+}
+
+.header .stats .name{
+    display: flex;
+    justify-content: left;
+    align-items: flex-end;
+    gap: 20px;
+}
+
+.header .stats .name .exp{
+    position: relative;
+}
+
+.header .stats .name .exp img{
+    width: 60px;
+}
+
+.header .stats .name .exp p{
+    color: white;
+    font-size: 20px;
+    position: absolute;
+    top: 46%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-weight: bold;
+}
+
+.header h2{
+    color: white;
+    font-size: 60px;
+}
+
+.header .stats .trophies,
+.header .stats .winsLosses,
+.header .stats .gameData{
+    display: flex;
+    align-items: center;
+    gap: 40px;
+    margin: 10px 0;
+}
+/* {
+    trophiesToday
+    .header .stats .trophies .trophiesToday,
+    .header .stats .trophies .bestTrophies{
+        display: flex;
+        gap: 10px;
+    }
+    
+    .header .stats .trophies .trophiesToday p,
+    .header .stats .trophies .bestTrophies p{
+        color: white;
+        font-size: 20px;
+        font-weight: bold;
+    }
+    
+    .header .stats .trophies .trophiesToday img,
+    .header .stats .trophies .bestTrophies img{
+        width: 30px;
+    } 
+}
+ */
+ .header .stats .trophies,
+ .header .stats .winsLosses{
+    margin-top: 4px;
+}
+
+/* CLAN */
+.header .clan .clanName{
+    text-align: center;
+}
+
+/* MAIN */
+.main{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-evenly;
+    height: calc(100vh - 400px);
+/*     background-color: burlywood; */
+}
+
+.main .currentDeck .currentDeckTitle,
+.main .upcomingchests .upcomingchestsTitle{
+    text-align: center;
+    margin: 10px 0;
+    padding: 30px 0 0 0;
+    color: #2bb0cf;
+/*     background-color: antiquewhite; */
+}
+
+.main .currentDeck .currentDeckTitle p,
+.main .upcomingchests .upcomingchestsTitle p{
+    color: #2bb0cf;
+}
+
+.main .currentDeck .currentDeckImg{
+    display: grid;
+    grid-template-columns: repeat(8, 1fr);
+    grid-template-rows: 1fr;
+}
+
+.main .currentDeck .currentDeckImg img{
+    width: 120px;
+}
+
+.main .upcomingchests .upcomingchestsImg div:nth-child(1){
+    border: 3px solid #0089ff;
+    border-radius: 10px;
+}
+
+.main .upcomingchests .upcomingchestsImg{
+    display: grid;
+    grid-template-columns: repeat(15, 1fr);
+    gap: 10px;
+}
+
+.main .upcomingchests .upcomingchestsImg img{
+    width: 90px;
+    height: 90px;
+    padding: 5px;
+}
+
+.main .upcomingchests .upcomingchestsImg .chestsItem{
+    position: relative;
+}
+
+.main .upcomingchests .upcomingchestsImg .chestsItem p{
+    position: absolute;
+    color: white;
+    top: 65%;
+    left: 70%;
+    transform: translate(-50%, -50%);
+    background-color: #0089ff;
+    border-radius: 30px;
+    padding: 5px;
+}
