@@ -26,6 +26,17 @@ body{
     font-weight: bold; 
 }
 
+/* Barra Exp */
+.progressBar div{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}   
+.progressBar div p{
+    font-size: 12px;
+    padding: 5px;
+}
+
 /* HEADER */
 .header{
     width: 85%;
@@ -34,6 +45,7 @@ body{
     align-items: center;
     justify-content: space-between;
     height: inherit;
+    padding-top: 10px;
 }
 
 .header h2{

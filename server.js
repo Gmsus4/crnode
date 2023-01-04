@@ -4,9 +4,10 @@ const express = require('express');
 const request = require('request');
 
 const app = express();
-const seeds = require('./seeds');
-const chests = require('./chests');
-const arenas = require('./arenas')
+const seeds = require('./data/seeds');
+const chests = require('./data/chests');
+const arenas = require('./data/arenas');
+const exp = require('./data/exp');
 
 app.use(express.static('public'));
 
@@ -64,7 +65,29 @@ app.get('/search', (req, res) => {
         imgBanner: urlHero,
         imgArena: urlArena
       }
-      
+
+      /* EXP */
+      let maxXp = 0; // Nivel máximo de XP
+
+/*       Comparación de xp para poder saber el la experiencia máxima dependiendo su nivel */
+      const userLevel = datosJugador.expLevel; //Nivel del jugador
+      for(let e in exp){ //Iteración para coincidir con el mismo nivel
+        if(userLevel == exp[e].name){
+            maxXp = exp[e].exp_to_next_level; //Cambiando el valor máximo del xp
+        }
+      }
+
+      const currentXp = datosJugador.expPoints; // XP actual
+    
+      const widthProgress = ((currentXp / maxXp) * 100).toFixed(2) + '%';
+
+      const dataExp = {
+          width: widthProgress,
+          user: userLevel,
+          max: maxXp
+      }
+
+      /* Cofres */      
       request(`https://api.clashroyale.com/v1/players/%23${playerId}/upcomingchests`, {
         headers: {
           Authorization: `Bearer ${API_KEY}`
@@ -94,13 +117,15 @@ app.get('/search', (req, res) => {
           res.render('data.ejs',{
             cofresPorVenir: {chestUrlSorted, upcomingChests},
             url: dataUrl,
-            player: datosJugador
+            player: datosJugador,
+            exp: { dataExp } 
           });
 
 /*           res.send({
             cofresPorVenir:  {chestUrlSorted, upcomingChests},
             url: dataUrl,
-            player: datosJugador
+            player: datosJugador,
+            exp: { dataExp } 
           }); */
         }
       });
