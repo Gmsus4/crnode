@@ -3,6 +3,8 @@ const { response } = require('express');
 const express = require('express');
 const request = require('request');
 
+const getImageColors = require('get-image-colors');
+
 const app = express();
 const seeds = require('./data/seeds');
 const chests = require('./data/chests');
@@ -147,14 +149,27 @@ app.get('/clan', (req, res) =>{
       console.error(error);
     } else {
       const datosClan = JSON.parse(body);
-/*       console.log(datosClan); */
-      res.render('clan.ejs',{
-        clan: {datosClan}
+      const idClanBadges = datosClan.badgeId;
+      console.log(idClanBadges);
+      let rgb;
+
+      getImageColors(`https://cdn.statsroyale.com/images/badges/${idClanBadges}.png`).then(colors => {
+        primaryColor = colors[0];
+        const r = primaryColor._rgb[0];
+        const g = primaryColor._rgb[1];
+        const b = primaryColor._rgb[2];
+      
+        rgb = {
+          red: r, 
+          green: g,
+          blue: b
+        }
+      
+        /* console.log(rgb); */
+      
+        res.render('clan.ejs', { clan: {datosClan}, color: rgb });
+/*         res.send({ clan: {datosClan}, color: rgb }); */
       });
-/*       res.send({
-        clan: {datosClan},
-        hosting: hostClan
-      }); */
     }
   });
   
