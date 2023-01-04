@@ -1,0 +1,73 @@
+*{
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+body{
+    color: white;
+}
+
+.header{
+    width: 100%;
+    justify-content: space-around;
+}
+
+.header .stats{
+    width: auto;
+}
+
+.header .stats h2{
+    font-size: 80px;
+}
+
+.clanData{
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.location{
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.midStats{
+    width: auto;
+}
+
+.midStats_container{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+    flex-direction: column;
+}
+
+.midStats_container .metrics{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+    width: 100%;
+    margin: 5px 10px;
+}
+
+.card{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+}
+
+.card img{
+    width: 50px;
+}
+
+.card .response{
+    display: flex;
+    align-items: stretch;
+    justify-content: center;
+    flex-direction: column;
+    gap: 5px;
+}

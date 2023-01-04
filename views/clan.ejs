@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Clan</title>
+    <link rel="stylesheet" href="player.css">
+    <link rel="stylesheet" href="clan.css">
+    <style>
+        .container-header{
+            width: 100%;
+            height: 380px;
+            background: linear-gradient(to right, rgba(7, 7, 7, 1) 10%, rgba(7, 7, 7, 0.5) 90%), linear-gradient(to bottom, rgba(7, 7, 7, 0) 80%, rgba(7, 7, 7, 1) 100%), url('https://cdn.statsroyale.com/images/badges/<%= clan.datosClan.badgeId %>.png') no-repeat 70px 0%;
+            background-size: contain;
+            background-position: center;
+            box-shadow: rgba(0, 0, 0, 0.1) 0px 10px 50px; box-shadow: rgba(50, 50, 93, 0.25) 0px 50px 100px -20px, rgba(0, 0, 0, 0.3) 0px 30px 60px -30px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container-header">
+        <div class="header">
+            <div class="stats">
+                <div class="clanData">
+                    <div>
+                        <img src="https://cdn.statsroyale.com/images/badges/<%= clan.datosClan.badgeId %>.png" alt="">
+                    </div>
+                    <div>
+                        <div class="location">
+                            <h2><%= clan.datosClan.name %></h2>
+                            <img src="https://cdn.statsroyale.com/images/flags/<%= clan.datosClan.location.id %>.png" alt="">
+                        </div>
+                        <p><%= clan.datosClan.description %></p>
+                    </div>
+                </div>
+            </div>
+            <div class="midStats"> <!-- Posible nombre en espera -->
+                <div class="midStats_container"> <!-- contenedor -->
+                    <div class="metrics"> <!-- Contenedor de trofeos / trofeos requeridos -->
+                        <div class="card"> <!--  Contenedor de trofeos -->
+                            <img src="https://cdn.statsroyale.com/images/trophy.png" alt="">
+                            <div class="response">
+                                <p>Count trofeos</p>
+                                <p>Trofeos</p>
+                            </div>
+                        </div>
+                        <div class="card"> <!--  Contenedor de trofeos requeridos -->
+                            <img src="https://cdn.statsroyale.com/images/trophy.png" alt="">
+                            <div class="response">
+                                <p>Count trofeos</p>
+                                <p>Trofeos requeridos</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="metrics"> <!-- Contenedor de donaciones y Clan War -->
+                        <div class="card"> <!-- Contenedor de donaciones -->
+                            <img src="https://cdn.statsroyale.com/images/cards.png" alt="">
+                            <div class="response">
+                                <p><%= clan.datosClan.donationsPerWeek %></p>
+                                <p>Donaciones/Semana</p>
+                            </div>
+                        </div>
+                        <div class="card"> <!-- Contenedor de Clan War -->
+                            <img src="https://cdn.statsroyale.com/images/clan-trophies.png" alt="">
+                            <div class="response">
+                                <p>Trofeos</p>
+                                <p>Clan War Trophies</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="main">
+        <h3>Hello</h3>
+    </div>
+</body>
+</html>

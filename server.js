@@ -9,6 +9,8 @@ const chests = require('./data/chests');
 const arenas = require('./data/arenas');
 const exp = require('./data/exp');
 
+const hostClan = 'http://localhost:3000/clan?id=';
+
 app.use(express.static('public'));
 
 app.set('view engine', 'ejs');
@@ -118,7 +120,8 @@ app.get('/search', (req, res) => {
             cofresPorVenir: {chestUrlSorted, upcomingChests},
             url: dataUrl,
             player: datosJugador,
-            exp: { dataExp } 
+            exp: { dataExp },
+            hostClan
           });
 
 /*           res.send({
@@ -133,6 +136,29 @@ app.get('/search', (req, res) => {
   });
 });
 
+app.get('/clan', (req, res) =>{
+  const clanId = req.query.id;
+  request(`https://api.clashroyale.com/v1/clans/%23${clanId}`, {
+    headers: {
+      Authorization: `Bearer ${API_KEY}`
+    }
+  }, (error, response, body) => {
+    if (error) {
+      console.error(error);
+    } else {
+      const datosClan = JSON.parse(body);
+/*       console.log(datosClan); */
+      res.render('clan.ejs',{
+        clan: {datosClan}
+      });
+/*       res.send({
+        clan: {datosClan},
+        hosting: hostClan
+      }); */
+    }
+  });
+  
+})
 app.listen(3000, () => {
   console.log('Servidor iniciado en el puerto 3000');
 });

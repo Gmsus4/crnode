@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-    <link rel="stylesheet" href="data.css">
+    <link rel="stylesheet" href="player.css">
     <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;500&display=swap" rel="stylesheet">
     <style>
         .container-header{
@@ -88,7 +88,13 @@
                             <% if(player.clan === undefined){ %>
                                 <img src='https://cdn.statsroyale.com/images/badges/0.png' alt=""> 
                             <% } else{ %>
-                                <img src='https://cdn.statsroyale.com/images/badges/<%= player.clan.badgeId %>.png' alt=""> 
+
+                                <% const id = player.clan.tag; %>
+                                <% const modified = id.slice(1); %>
+
+                                <a href="<%= hostClan %><%= modified %>">
+                                    <img src='https://cdn.statsroyale.com/images/badges/<%= player.clan.badgeId %>.png' alt=""> 
+                                </a> 
                             <% } %>
             
                         </div>
