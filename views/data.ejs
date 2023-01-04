@@ -71,27 +71,33 @@
                     </div>
                 </div>
             </div>
-            <div class="clan">
-                <div class="clanImg">
-                    <% if(player.clan === undefined){ %>
-                        <img src='https://cdn.statsroyale.com/images/badges/0.png' alt=""> 
-                    <% } else{ %>
-                        <img src='https://cdn.statsroyale.com/images/badges/<%= player.clan.badgeId %>.png' alt=""> 
-                    <% } %>
-    
+            <div class="midStats"> <!-- Posible nombre en espera -->
+                <div class="clan">
+                    <div class="clanContainer">
+                        <div class="clanImg">
+                            <% if(player.clan === undefined){ %>
+                                <img src='https://cdn.statsroyale.com/images/badges/0.png' alt=""> 
+                            <% } else{ %>
+                                <img src='https://cdn.statsroyale.com/images/badges/<%= player.clan.badgeId %>.png' alt=""> 
+                            <% } %>
+            
+                        </div>
+                        <div class="clanName">
+                            <% if(player.clan === undefined){ %>
+                                <p class="p">Sin clan</p>
+                            <% } else{ %>
+                                <p class="p"><%= player.clan.name %></p>
+                            <% } %>
+                        </div>
+                    </div>
                 </div>
-                <div class="clanName">
-                    <% if(player.clan === undefined){ %>
-                        <p class="p">Sin clan</p>
-                    <% } else{ %>
-                        <p class="p"><%= player.clan.name %></p>
-                        <p><%= player.clan.tag %></p>
-                        <p><%= player.totalDonations %> Donaciones</p>
-                    <% } %>
+
+                <div class="arena">
+                    <div class="arenaImg">
+                        <img src="<%= url.imgArena %>" alt="">
+                    </div>
+                    <p class="p"><%= player.arena.name %></p>
                 </div>
-            </div>
-            <div>
-                <p><%= player.arena.name %></p>
             </div>
         </div>
     </div>

@@ -9,6 +9,8 @@ body{
     color: white;
 }
 
+/* UNIVERSALES */
+
 .w30{ /* img */
     width: 30px;
 }
@@ -24,42 +26,44 @@ body{
     font-weight: bold; 
 }
 
+/* HEADER */
 .header{
     width: 85%;
     margin: 0 auto;
-/*     background-color: burlywood; */
     display: flex;
     align-items: center;
     justify-content: space-between;
     height: inherit;
 }
 
-.header .stats{
+.header h2{
+    color: white;
+    font-size: 60px;
+}
+
+/* STATS */
+
+.stats{
     padding: 40px 0;
     height: auto;
 }
 
-.header .stats .titleP{
-    color: #2bb0cf;
-    margin-top: 23px;
-}
-
-.header .stats .name{
+.stats .name{
     display: flex;
     justify-content: left;
     align-items: flex-end;
     gap: 20px;
 }
 
-.header .stats .name .exp{
+.stats .name .exp{
     position: relative;
 }
 
-.header .stats .name .exp img{
+.stats .name .exp img{
     width: 60px;
 }
 
-.header .stats .name .exp p{
+.stats .name .exp p{
     color: white;
     font-size: 20px;
     position: absolute;
@@ -69,55 +73,70 @@ body{
     font-weight: bold;
 }
 
-.header h2{
-    color: white;
-    font-size: 60px;
+.stats .created{
+    display: flex;
+    align-items: center;
+    gap: 10px;
 }
 
-.header .stats .trophies,
-.header .stats .winsLosses,
-.header .stats .gameData{
+.stats .titleP{
+    color: #2bb0cf;
+    margin-top: 23px;
+}
+
+.stats .trophies,
+.stats .winsLosses,
+.stats .gameData{
     display: flex;
     align-items: center;
     gap: 40px;
     margin: 10px 0;
 }
-/* {
-    trophiesToday
-    .header .stats .trophies .trophiesToday,
-    .header .stats .trophies .bestTrophies{
-        display: flex;
-        gap: 10px;
-    }
-    
-    .header .stats .trophies .trophiesToday p,
-    .header .stats .trophies .bestTrophies p{
-        color: white;
-        font-size: 20px;
-        font-weight: bold;
-    }
-    
-    .header .stats .trophies .trophiesToday img,
-    .header .stats .trophies .bestTrophies img{
-        width: 30px;
-    } 
-}
- */
- .header .stats .trophies,
- .header .stats .winsLosses{
+
+.stats .trophies,
+.stats .winsLosses{
     margin-top: 4px;
 }
 
-/* CLAN */
-.header .clan .clanName{
+/* MID STATS */
+.midStats{
+/*     background-color: #0089ff; */
+    display: flex;
+    align-items: flex-end;
+    gap: 30px;
+}
+
+    /* clan */
+.clan .clanContainer{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.clan .clanName{
     text-align: center;
 }
 
-.header .stats .created{
-    display: flex;
-    align-items: center;
-    gap: 10px;
+.clan .clanImg img{
+    width: 130px;
+    margin-bottom: 20px;
+
 }
+
+    /* arena */
+.arena{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.arena .arenaImg img{
+    width: 200px;
+}
+
+
 
 /* MAIN */
 .main{
@@ -202,6 +221,8 @@ body{
     border-radius: 30px;
     padding: 5px;
 }
+
+
 
 @media (max-width: 1367px){
     .main .currentDeck .currentDeckImg{

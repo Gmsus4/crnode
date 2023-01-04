@@ -6,6 +6,7 @@ const request = require('request');
 const app = express();
 const seeds = require('./seeds');
 const chests = require('./chests');
+const arenas = require('./arenas')
 
 app.use(express.static('public'));
 
@@ -30,20 +31,28 @@ app.get('/search', (req, res) => {
     if (error) {
       console.error(error);
     } else {
-      let url = [];
-      let entradas = [];
+      let urlHero = [];
+      let urlArena = [];
+      let urlCurrentDeck = [];
       const datosJugador = JSON.parse(body);
       const currentFavouriteCard = datosJugador.currentFavouriteCard.name;
       const currentDeck = datosJugador.currentDeck;
+
+      for(let arena in arenas){
+        if(arenas[arena].name === datosJugador.arena.name){
+/*           console.log(arenas[arena].url); */
+          urlArena.push(arenas[arena].url);
+        }
+      }
       
       // Aquí iría tu lógica para procesar los datos del jugador
       for(let seed in seeds){ //Itera el formato JSON el seed será el valor iterado, es decir, cuantas veces se iteró
         if(seeds[seed].name === currentFavouriteCard){
-          url =  `https://cdn.statsroyale.com/images/characters/${seeds[seed].key}.jpg`;
+          urlHero =  `https://cdn.statsroyale.com/images/characters/${seeds[seed].key}.jpg`;
               for (let i = 0; i < seeds.length; i++) {
                 for (let j = 0; j < currentDeck.length; j++) {
                     if (seeds[i].name === currentDeck[j].name) {
-                        entradas.push(`https://cdn.statsroyale.com/images/cards/full/${seeds[i].key}.png`);
+                        urlCurrentDeck.push(`https://cdn.statsroyale.com/images/cards/full/${seeds[i].key}.png`);
                       }
                 }
               }
@@ -51,8 +60,9 @@ app.get('/search', (req, res) => {
       }
 
       let dataUrl = {
-        imgCards: entradas, 
-        imgBanner: url
+        imgCards: urlCurrentDeck, 
+        imgBanner: urlHero,
+        imgArena: urlArena
       }
       
       request(`https://api.clashroyale.com/v1/players/%23${playerId}/upcomingchests`, {
