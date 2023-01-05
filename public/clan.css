@@ -5,6 +5,7 @@
 }
 body{
     color: white;
+    background-color: black;
 }
 
 .header{
@@ -70,4 +71,64 @@ body{
     justify-content: center;
     flex-direction: column;
     gap: 5px;
+}
+
+.containerMain{
+    display: grid;
+    grid-template-columns: repeat(7, auto);
+    grid-template-rows: auto;
+    gap: 20px 50px;
+}
+
+.containerMain div{
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+/* Empieza la tabla con flex */
+.mainContainer{
+    display: none;
+    align-items: baseline;
+    gap: 20px 40px;
+}
+
+.main img{
+    width: 16px;
+}
+
+.main .trophies div,
+.main .donations div,
+.main .level div,
+.main .lastSeen div,
+.main .name div,
+.main .role div,
+.main .position div{
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 5px;
+    margin: 10px;
+}
+
+.main .trophies,
+.main .donations,
+.main .level,
+.main .lastSeen,
+.main .name,
+.main .role,
+.main .position{
+    display: flex;
+    flex-direction: column;
+    align-items: baseline;
+}
+
+.main p{
+    font-size: 18px;
+}
+
+.titleName{
+    color: tomato;
+    font-weight: bold;
+    font-size: 18px;
+    margin-bottom: 10px;
 }

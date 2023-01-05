@@ -41,14 +41,14 @@
                         <div class="card"> <!--  Contenedor de trofeos -->
                             <img src="https://cdn.statsroyale.com/images/trophy.png" alt="">
                             <div class="response">
-                                <p>Count trofeos</p>
+                                <p><%= clan.datosClan.clanScore %></p>
                                 <p>Trofeos</p>
                             </div>
                         </div>
                         <div class="card"> <!--  Contenedor de trofeos requeridos -->
                             <img src="https://cdn.statsroyale.com/images/trophy.png" alt="">
                             <div class="response">
-                                <p>Count trofeos</p>
+                                <p><%= clan.datosClan.requiredTrophies %></p>
                                 <p>Trofeos requeridos</p>
                             </div>
                         </div>
@@ -64,7 +64,7 @@
                         <div class="card"> <!-- Contenedor de Clan War -->
                             <img src="https://cdn.statsroyale.com/images/clan-trophies.png" alt="">
                             <div class="response">
-                                <p>Trofeos</p>
+                                <p><%= clan.datosClan.clanWarTrophies %></p>
                                 <p>Clan War Trophies</p>
                             </div>
                         </div>
@@ -75,7 +75,124 @@
     </div>
 
     <div class="main">
-        <h3>Hello</h3>
+        <div>
+            <h2>Miembros</h2>
+        </div>
+        <div class="containerMain">
+            <p>Puesto</p>
+            <p>Nombre</p>
+            <p>Nivel</p>
+            <p>Trofeos</p>
+            <p>Donaciones</p>
+            <p>Rol</p>
+            <p>Last Seen</p>
+            <% for(let i in clan.datosClan.memberList){ %>
+                <p> #<%= clan.datosClan.memberList[i].clanRank %> </p>
+                <a href="<%= hostUser %><%= clan.datosClan.memberList[i].tag.slice(1) %>">
+                    <p> <%= clan.datosClan.memberList[i].name %> </p>
+                </a>
+                <div>
+                    <img src="https://cdn.statsroyale.com/images/level-big.png" alt="">
+                    <p> <%= clan.datosClan.memberList[i].expLevel %> </p>
+                </div>
+                <div>
+                    <img src="https://cdn.statsroyale.com/images/trophy.png" alt="">
+                    <p> <%= clan.datosClan.memberList[i].trophies %> </p>
+                </div>
+                <div>
+                    <img src="https://cdn.statsroyale.com/images/tournament-cards.png" alt="">
+                    <p> <%= clan.datosClan.memberList[i].donations %> </p>
+                </div>
+                <% switch (clan.datosClan.memberList[i].role) {
+                    case 'coLeader': %>
+                        <p>Colíder</p> 
+                    <% break; %>
+                  
+                    <% case 'leader': %>
+                        <p>Líder</p> 
+                    <% break; %>
+                      
+                    <% case 'elder': %>
+                        <p>Veterano</p> 
+                    <% break; %>
+                    
+                    <% case 'member': %>
+                        <p>Miembro</p> 
+                    <% break; %>
+                <% } %>
+        
+                <div>
+                    <img src="https://cdn.statsroyale.com/images/clock.png" alt="">
+                    <p><%= times[i] %></p>
+                </div>
+            <%} %>
+        </div>
+
+
+        <div class="mainContainer">
+            <div class="position">
+                <p class="titleName">Puesto</p>
+                <% for(let i in clan.datosClan.memberList){ %>
+                    <div>
+                        <p> #<%= clan.datosClan.memberList[i].clanRank %> </p>
+                    </div>
+                <%} %>
+            </div>
+            <div class="name">
+                <p class="titleName">Nombre</p>
+                <% for(let i in clan.datosClan.memberList){ %>
+                    <div>
+                        <a href="<%= hostUser %><%= clan.datosClan.memberList[i].tag.slice(1) %>">
+                            <p> <%= clan.datosClan.memberList[i].name %> </p>
+                        </a>
+                    </div>
+                <%} %>
+            </div>
+            <div class="level">
+                <p class="titleName">Nivel</p>
+                <% for(let i in clan.datosClan.memberList){ %>
+                    <div>
+                        <img src="https://cdn.statsroyale.com/images/level-big.png" alt="" class="w30">
+                        <p> <%= clan.datosClan.memberList[i].expLevel %> </p>
+                    </div>
+                <%} %>
+            </div>
+            <div class="trophies">
+                <p class="titleName">Trofeos</p>
+                <% for(let i in clan.datosClan.memberList){ %>
+                    <div>
+                        <img src="https://cdn.statsroyale.com/images/trophy.png" alt="">
+                        <p> <%= clan.datosClan.memberList[i].trophies %> </p>
+                    </div>
+                <%} %>
+            </div>
+            <div class="donations">
+                <p class="titleName">Donaciones</p>
+                <% for(let i in clan.datosClan.memberList){ %>
+                    <div>
+                        <img src="https://cdn.statsroyale.com/images/tournament-cards.png" alt="">
+                        <p> <%= clan.datosClan.memberList[i].donations %> </p>
+                    </div>
+                <%} %>
+            </div>
+            <div class="role">
+                <p class="titleName">Rol</p>
+                <% for(let i in clan.datosClan.memberList){ %>
+                    <div>
+                        <p> <%= clan.datosClan.memberList[i].role %> </p>
+                    </div>
+                <%} %>
+            </div>
+            <div class="lastSeen">
+                <p class="titleName">Last Seen</p>
+                <% for(let i in clan.datosClan.memberList){ %>
+                    <div>
+                        <img src="https://cdn.statsroyale.com/images/clock.png" alt="">
+                        <p> <%= clan.datosClan.memberList[i].lastSeen %> </p>
+                    </div>
+                <%} %>
+            </div>
+        </div>
     </div>
 </body>
 </html>

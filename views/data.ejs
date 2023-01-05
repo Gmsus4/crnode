@@ -88,11 +88,7 @@
                             <% if(player.clan === undefined){ %>
                                 <img src='https://cdn.statsroyale.com/images/badges/0.png' alt=""> 
                             <% } else{ %>
-
-                                <% const id = player.clan.tag; %>
-                                <% const modified = id.slice(1); %>
-
-                                <a href="<%= hostClan %><%= modified %>">
+                                <a href="<%= hostClan %><%= player.clan.tag.slice(1) %>">
                                     <img src='https://cdn.statsroyale.com/images/badges/<%= player.clan.badgeId %>.png' alt=""> 
                                 </a> 
                             <% } %>

@@ -12,6 +12,7 @@ const arenas = require('./data/arenas');
 const exp = require('./data/exp');
 
 const hostClan = 'http://localhost:3000/clan?id=';
+const hostUser = 'http://localhost:3000/search?playerId='
 
 app.use(express.static('public'));
 
@@ -150,9 +151,9 @@ app.get('/clan', (req, res) =>{
     } else {
       const datosClan = JSON.parse(body);
       const idClanBadges = datosClan.badgeId;
-      console.log(idClanBadges);
+     /*  console.log(idClanBadges); */
       let rgb;
-
+      
       getImageColors(`https://cdn.statsroyale.com/images/badges/${idClanBadges}.png`).then(colors => {
         primaryColor = colors[0];
         const r = primaryColor._rgb[0];
@@ -164,10 +165,89 @@ app.get('/clan', (req, res) =>{
           green: g,
           blue: b
         }
-      
+
+
+        const lastSeenClan = datosClan.memberList;
+        const listMod = []; //Lista de la última conexión de los jugadores. Sin validacion en el formato
+        const listOk = []; //Lista de la última conexión de los jugadores pero la que tiene validación
+        let times = []; //Lista original con el tiempo en vivo sobre la última conexión de los jugadores
+
+        for(let last in lastSeenClan){ //Iteración de la última conexión de todos los jugadores
+          listMod.push(lastSeenClan[last].lastSeen); //Agregamos a la lista la última conexión de todos los jugadores (Sin validacion en el formato)
+        }
+
+        for(let list in listMod){ //Iteramos esa lista nueva que creamos
+          const str = listMod[list] //El valor será cada un (Última conexión) por cada uno
+          const arr = []; //Todo esto es para modivicar el valor de la última conexión para que sea válido
+          const pattern = [4, 2, 5, 2, 2, 5];
+  
+          let i = 0;
+          for (const size of pattern) {
+            arr.push(str.slice(i, i + size));
+            i += size;
+          }
+          /* console.log(`${arr[0]}-${arr[1]}-${arr[2]}:${arr[3]}:${arr[4]}${arr[5]}`); */
+          listOk.push(`${arr[0]}-${arr[1]}-${arr[2]}:${arr[3]}:${arr[4]}${arr[5]}`); // Finalmente lo hacemos válido y hacemos push para agregarlo al array. Con esto todos tienen un valor único de cada usuario de su última conexión
+        }
+
+
+        console.log(listOk);
+
+        for(let list in listOk){ //Esta iteración, es para iterar cada uno de los usuarios con el date valido
+          let lastSeen = new Date(listOk[list]); //Aquí lo transformamos, recuerda, a cada uno de ellos
+          let currentTime = new Date(); //Obtenemos la fecha y la hora exacta actualmente para poder comparar el tiempo de la última conexión
+
+          //Sacamos la diferencia entre el tiempo en milisegundos, la cual podemos comparar con el tiempo actual y así sacar una diferencia
+          //Entre milisegundos, segundos, minutos, horas, días, semanas, meses o hasta años
+          let milisegundo = (currentTime.getTime() - lastSeen.getTime()); // diferencia en milisegundos
+          let segundo = (currentTime.getTime() - lastSeen.getTime()) / 1000; // diferencia en segundos
+          let minuto = (currentTime.getTime() - lastSeen.getTime()) / (1000 * 60); //Diferencia en minutos
+          let hora = (currentTime.getTime() - lastSeen.getTime()) / (1000 * 60 * 60); //Diferencia en horas
+          let day = (currentTime.getTime() - lastSeen.getTime()) / (1000 * 60 * 60 * 24); //Diferencia en días
+          let week = (currentTime.getTime() - lastSeen.getTime()) / (1000 * 60 * 60 * 24 * 7); //Diferencia en semanas
+          let month = (currentTime.getTime() - lastSeen.getTime()) / (1000 * 60 * 60 * 24 * 30.4167); //Diferencia en meses
+          let year = (currentTime.getTime() - lastSeen.getTime()) / (1000 * 60 * 60 * 24 * 7 * 52); //Diferencia en años
+          /* console.log(milisegundo); */
+
+          //Para saber dependiendo los milisegundos tenemos esta lógica, pues si los milisegundos son menores a ... podemos saber si el tiempo ausente es de segundos o hasta meses.
+          switch (true) {  //Creamos una condicional con switch
+            case milisegundo < 1000: //Dependiendo de los milisegundos vamos a clasificar el tiempo
+              times.push(`Hace ${Math.floor(milisegundo)} milisegundos`); //Hacemos un push a una variable vacía para recopilar la información. Recordar que el switch está dentro de una iteración por cada usuario.
+              console.log(`Hace ${Math.floor(milisegundo)} milisegundos`);
+              break;
+            case milisegundo < 60000:
+              times.push(`Hace ${Math.floor(segundo)} segundos`);
+              console.log(`Hace ${Math.floor(segundo)} segundos`);
+              break;
+            case milisegundo < 3600000:
+              times.push(`Hace ${Math.floor(minuto)} minutos`);
+              console.log(`Hace ${Math.floor(minuto)} minutos`);
+              break;
+            case milisegundo < 86400000:
+              times.push(`Hace ${Math.floor(hora)} horas`);
+              console.log(`Hace ${Math.floor(hora)} horas`);
+              break;
+            case milisegundo < 604800000:
+              times.push(`Hace ${Math.floor(day)} días`);
+              console.log(`Hace ${Math.floor(day)} días`);
+              break;
+            case milisegundo < 2592000000:
+              times.push(`Hace ${Math.floor(week)} semanas`);
+              console.log(`Hace ${Math.floor(week)} semanas`);
+              break;
+            case milisegundo < 31104000000:
+              times.push(`Hace ${Math.floor(month)} meses`);
+              console.log(`Hace ${Math.floor(month)} meses`);
+              break;
+            default:
+              times.push(`Hace ${Math.floor(year)} años`);
+              console.log(`Hace ${Math.floor(year)} años`);
+          }        
+        }
         /* console.log(rgb); */
+        console.log(times);
       
-        res.render('clan.ejs', { clan: {datosClan}, color: rgb });
+        res.render('clan.ejs', { clan: {datosClan}, color: rgb, hostUser, times });
 /*         res.send({ clan: {datosClan}, color: rgb }); */
       });
     }
@@ -177,3 +257,24 @@ app.get('/clan', (req, res) =>{
 app.listen(3000, () => {
   console.log('Servidor iniciado en el puerto 3000');
 });
+
+
+/* switch (clan.datosClan.memberList[i].role) {
+  case 'coLeader':
+    Colíder
+    break;
+
+  case 'leader':
+    Líder
+    break;
+    
+  case 'elder':
+    Veterano
+    break;
+  
+  case 'member':
+    Miembro
+    break;
+}
+
+<p> <%= clan.datosClan.memberList[i].role %> </p> */
