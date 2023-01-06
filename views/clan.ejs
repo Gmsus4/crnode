@@ -4,7 +4,8 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Clan</title>
+    <title><%= clan.datosClan.name %> ● Clan</title>
+    <link rel="shortcut icon" type="image/png" href="https://cdn.statsroyale.com/images/badges/<%= clan.datosClan.badgeId %>.png">
     <link rel="stylesheet" href="player.css">
     <link rel="stylesheet" href="clan.css">
     <style>
@@ -15,6 +16,15 @@
             background-size: contain;
             background-position: center;
             box-shadow: rgba(0, 0, 0, 0.1) 0px 10px 50px; box-shadow: rgba(50, 50, 93, 0.25) 0px 50px 100px -20px, rgba(0, 0, 0, 0.3) 0px 30px 60px -30px;
+        }
+        .midStats,
+        .containerMain,
+        .header .stats .members div{
+            background-color: rgba(<%= color.red %>, <%= color.green %>, <%= color.blue %>, 0.1 );
+        }
+        .subTitle{
+            font-weight: bold;
+            color: #233d4d;
         }
     </style>
 </head>
@@ -32,6 +42,12 @@
                             <img src="https://cdn.statsroyale.com/images/flags/<%= clan.datosClan.location.id %>.png" alt="">
                         </div>
                         <p><%= clan.datosClan.description %></p>
+                    </div>
+                </div>
+                <div class="members">
+                    <div>
+                        <img src="../img/friends.png" alt="">
+                        <p><%= clan.datosClan.members %></p>
                     </div>
                 </div>
             </div>
@@ -75,17 +91,17 @@
     </div>
 
     <div class="main">
-        <div>
+        <div class="title">
             <h2>Miembros</h2>
         </div>
         <div class="containerMain">
-            <p>Puesto</p>
-            <p>Nombre</p>
-            <p>Nivel</p>
-            <p>Trofeos</p>
-            <p>Donaciones</p>
-            <p>Rol</p>
-            <p>Last Seen</p>
+            <p class="subTitle">Puesto</p>
+            <p class="subTitle">Nombre</p>
+            <p class="subTitle">Nivel</p>
+            <p class="subTitle">Trofeos</p>
+            <p class="subTitle">Donaciones</p>
+            <p class="subTitle">Rol</p>
+            <p class="subTitle">Last Seen</p>
             <% for(let i in clan.datosClan.memberList){ %>
                 <p> #<%= clan.datosClan.memberList[i].clanRank %> </p>
                 <a href="<%= hostUser %><%= clan.datosClan.memberList[i].tag.slice(1) %>">

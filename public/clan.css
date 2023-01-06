@@ -4,17 +4,39 @@
     box-sizing: border-box;
 }
 body{
-    color: white;
-    background-color: black;
+    color: black;
+    background-color: white;
 }
 
 .header{
     width: 100%;
     justify-content: space-around;
+    flex-direction: column;
 }
 
 .header .stats{
-    width: auto;
+    display: flex;
+    width: 100%;
+    padding: 0;
+    justify-content: space-evenly;
+    align-items: center;
+    flex-direction: column;
+}
+
+.header .stats .members div{
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    padding: 10px 30px;
+    border-radius: 50px;
+}
+
+.header .stats .members div p{
+    color: white;
+}
+
+.header .stats .members div img{
+    width: 30px;
 }
 
 .header .stats h2{
@@ -27,6 +49,10 @@ body{
     gap: 20px;
 }
 
+.clanData div p{
+    color: white;
+}
+
 .location{
     display: flex;
     align-items: center;
@@ -35,6 +61,9 @@ body{
 
 .midStats{
     width: auto;
+    padding: 25px 35px;
+    background-color: thistle;
+    border-radius: 50px;
 }
 
 .midStats_container{
@@ -42,7 +71,7 @@ body{
     align-items: center;
     justify-content: center;
     gap: 20px;
-    flex-direction: column;
+    flex-direction: row;
 }
 
 .midStats_container .metrics{
@@ -61,6 +90,10 @@ body{
     gap: 10px;
 }
 
+.card div p{
+    color: white;
+}
+
 .card img{
     width: 50px;
 }
@@ -77,7 +110,17 @@ body{
     display: grid;
     grid-template-columns: repeat(7, auto);
     grid-template-rows: auto;
-    gap: 20px 50px;
+    gap: 20px 35px;
+    padding: 25px 70px;
+    border-radius: 50px;
+    box-shadow: rgba(0, 0, 0, 0.19) 0px 10px 20px, rgba(0, 0, 0, 0.23) 0px 6px 6px;
+    margin-bottom: 80px;
+}
+
+.containerMain a{
+    text-decoration: none;
+    font-weight: bold;
+    color: #0ca6c7;
 }
 
 .containerMain div{
@@ -85,11 +128,15 @@ body{
     align-items: center;
     gap: 5px;
 }
-/* Empieza la tabla con flex */
-.mainContainer{
-    display: none;
-    align-items: baseline;
-    gap: 20px 40px;
+
+.main {
+    background-color: white;
+}
+
+.main .title{
+    margin: 25px 0;
+    font-size: 30px;
+    color: #233d4d;
 }
 
 .main img{
@@ -126,9 +173,10 @@ body{
     font-size: 18px;
 }
 
-.titleName{
-    color: tomato;
-    font-weight: bold;
-    font-size: 18px;
-    margin-bottom: 10px;
+/* Empieza la tabla con flex */
+.mainContainer{
+    display: none;
+    align-items: baseline;
+    gap: 20px 40px;
 }
+

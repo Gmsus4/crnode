@@ -85,10 +85,15 @@ body{
     font-weight: bold;
 }
 
-.stats .created{
+.stats .lastTime{
     display: flex;
     align-items: center;
     gap: 10px;
+    margin-top: 5px;
+}
+
+.stats .lastTime img{
+    width: 20px;
 }
 
 .stats .titleP{

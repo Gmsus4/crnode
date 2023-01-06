@@ -22,6 +22,43 @@ const API_KEYOLD = 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiIsImtpZCI6IjI4YTMxOGY3LTAw
 
 const API_KEY = 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiIsImtpZCI6IjI4YTMxOGY3LTAwMDAtYTFlYi03ZmExLTJjNzQzM2M2Y2NhNSJ9.eyJpc3MiOiJzdXBlcmNlbGwiLCJhdWQiOiJzdXBlcmNlbGw6Z2FtZWFwaSIsImp0aSI6ImJmNTYwMTNhLWZjZmYtNGFiZi05OGI4LTNjMTNkMDIxMGU5ZiIsImlhdCI6MTY3Mjc4MDYwMiwic3ViIjoiZGV2ZWxvcGVyL2Y4ZTk0YzYwLWQwNjItNTQ4YS1lNTJkLTM3ZDRiZTFhMDc5MSIsInNjb3BlcyI6WyJyb3lhbGUiXSwibGltaXRzIjpbeyJ0aWVyIjoiZGV2ZWxvcGVyL3NpbHZlciIsInR5cGUiOiJ0aHJvdHRsaW5nIn0seyJjaWRycyI6WyIxODcuMjExLjE5NC42MiJdLCJ0eXBlIjoiY2xpZW50In1dfQ.k7u0ZANYbusrhkiI9LhxWzSrbmNlUJY3MUmL1oMQ7F7gUxsR3NPvaDcqvdFv7pN0Suw61yd_2XDJPKMNovlrOg';
 
+function getTimeDate(ml,s,min,hrs,day,week,month,year,data){
+  //Para saber dependiendo los milisegundos tenemos esta lógica, pues si los milisegundos son menores a ... podemos saber si el tiempo ausente es de segundos o hasta meses.
+  switch (true) {  //Creamos una condicional con switch
+    case ml < 1000: //Dependiendo de los milisegundos vamos a clasificar el tiempo
+      data.push(`Hace ${Math.floor(ml)} milisegundos`); //Hacemos un push a una variable vacía para recopilar la información. Recordar que el switch está dentro de una iteración por cada usuario.
+      /* console.log(`Hace ${Math.floor(milisegundo)} milisegundos`); */
+      break;
+    case ml < 60000:
+      data.push(`Hace ${Math.floor(s)} segundos`);
+      /* console.log(`Hace ${Math.floor(segundo)} segundos`); */
+      break;
+    case ml < 3600000:
+      data.push(`Hace ${Math.floor(min)} minutos`);
+      /* console.log(`Hace ${Math.floor(minuto)} minutos`); */
+      break;
+    case ml < 86400000:
+      data.push(`Hace ${Math.floor(hrs)} horas`);
+      /* console.log(`Hace ${Math.floor(hora)} horas`); */
+      break;
+    case ml < 604800000:
+      data.push(`Hace ${Math.floor(day)} días`);
+      /* console.log(`Hace ${Math.floor(day)} días`); */
+      break;
+    case ml < 2592000000:
+      data.push(`Hace ${Math.floor(week)} semanas`);
+      /* console.log(`Hace ${Math.floor(week)} semanas`); */
+      break;
+    case ml < 31104000000:
+      data.push(`Hace ${Math.floor(month)} meses`);
+      /* console.log(`Hace ${Math.floor(month)} meses`); */
+      break;
+    default:
+      data.push(`Hace ${Math.floor(year)} años`);
+      /* console.log(`Hace ${Math.floor(year)} años`); */
+  }        
+}
+
 app.get('/', (req, res) =>{
     res.render('index');
 })
@@ -43,6 +80,9 @@ app.get('/search', (req, res) => {
       const datosJugador = JSON.parse(body);
       const currentFavouriteCard = datosJugador.currentFavouriteCard.name;
       const currentDeck = datosJugador.currentDeck;
+      const clanId = datosJugador.clan.tag.slice(1);
+
+      console.log(clanId);
 
       for(let arena in arenas){
         if(arenas[arena].name === datosJugador.arena.name){
@@ -118,21 +158,59 @@ app.get('/search', (req, res) => {
           let sortedArray = filterArray.sort((a, b) => a.index - b.index);
           let chestUrlSorted = sortedArray.map(item => item.url);
 
-          // Aquí se envía la respuesta con los datos del jugador y los cofres por venir
-          res.render('data.ejs',{
-            cofresPorVenir: {chestUrlSorted, upcomingChests},
-            url: dataUrl,
-            player: datosJugador,
-            exp: { dataExp },
-            hostClan
-          });
+          request(`https://api.clashroyale.com/v1/clans/%23${clanId}`,{
+            headers: {
+              Authorization: `Bearer ${API_KEY}`
+            }
+          }, (error, response, body) => {
+            if (error) {
+              console.error(error);
+            } else {
+                const datosClan = JSON.parse(body);
+                const idClan = datosClan.memberList;
+                const lastTime = [];
 
-/*           res.send({
-            cofresPorVenir:  {chestUrlSorted, upcomingChests},
-            url: dataUrl,
-            player: datosJugador,
-            exp: { dataExp } 
-          }); */
+                for(let id in idClan){
+                  if(idClan[id].tag === datosJugador.tag){
+                    let str = idClan[id].lastSeen; //El valor será cada un (Última conexión) por cada uno
+                    const arr = []; //Todo esto es para modivicar el valor de la última conexión para que sea válido
+                    const pattern = [4, 2, 5, 2, 2, 5];
+            
+                    let i = 0;
+                    for (const size of pattern) {
+                      arr.push(str.slice(i, i + size));
+                      i += size;
+                    }
+                    str = (`${arr[0]}-${arr[1]}-${arr[2]}:${arr[3]}:${arr[4]}${arr[5]}`);
+                    console.log(str);
+
+                    //Ojo, que volvimos a repetir código. Pero no encontré otra manera de simplificar el código, ya será en otra ocasión
+                    let lastSeen = new Date(str);
+                    let currentTime = new Date();
+          
+                    let milisegundo = (currentTime.getTime() - lastSeen.getTime());
+                    let segundo = (currentTime.getTime() - lastSeen.getTime()) / 1000;
+                    let minuto = (currentTime.getTime() - lastSeen.getTime()) / (1000 * 60);
+                    let hora = (currentTime.getTime() - lastSeen.getTime()) / (1000 * 60 * 60); 
+                    let day = (currentTime.getTime() - lastSeen.getTime()) / (1000 * 60 * 60 * 24); 
+                    let week = (currentTime.getTime() - lastSeen.getTime()) / (1000 * 60 * 60 * 24 * 7); 
+                    let month = (currentTime.getTime() - lastSeen.getTime()) / (1000 * 60 * 60 * 24 * 30.4167); 
+                    let year = (currentTime.getTime() - lastSeen.getTime()) / (1000 * 60 * 60 * 24 * 7 * 52); 
+                    getTimeDate(milisegundo, segundo, minuto, hora, day, week, month, year, lastTime);
+                  }
+                }
+                console.log(lastTime[0]);
+                // Aquí se envía la respuesta con los datos del jugador y los cofres por venir
+                res.render('data.ejs',{
+                  cofresPorVenir: {chestUrlSorted, upcomingChests},
+                  url: dataUrl,
+                  player: datosJugador,
+                  exp: { dataExp },
+                  hostClan, 
+                  lastTime
+                });
+            }
+          });
         }
       });
     }
@@ -190,9 +268,6 @@ app.get('/clan', (req, res) =>{
           listOk.push(`${arr[0]}-${arr[1]}-${arr[2]}:${arr[3]}:${arr[4]}${arr[5]}`); // Finalmente lo hacemos válido y hacemos push para agregarlo al array. Con esto todos tienen un valor único de cada usuario de su última conexión
         }
 
-
-        console.log(listOk);
-
         for(let list in listOk){ //Esta iteración, es para iterar cada uno de los usuarios con el date valido
           let lastSeen = new Date(listOk[list]); //Aquí lo transformamos, recuerda, a cada uno de ellos
           let currentTime = new Date(); //Obtenemos la fecha y la hora exacta actualmente para poder comparar el tiempo de la última conexión
@@ -207,46 +282,8 @@ app.get('/clan', (req, res) =>{
           let week = (currentTime.getTime() - lastSeen.getTime()) / (1000 * 60 * 60 * 24 * 7); //Diferencia en semanas
           let month = (currentTime.getTime() - lastSeen.getTime()) / (1000 * 60 * 60 * 24 * 30.4167); //Diferencia en meses
           let year = (currentTime.getTime() - lastSeen.getTime()) / (1000 * 60 * 60 * 24 * 7 * 52); //Diferencia en años
-          /* console.log(milisegundo); */
-
-          //Para saber dependiendo los milisegundos tenemos esta lógica, pues si los milisegundos son menores a ... podemos saber si el tiempo ausente es de segundos o hasta meses.
-          switch (true) {  //Creamos una condicional con switch
-            case milisegundo < 1000: //Dependiendo de los milisegundos vamos a clasificar el tiempo
-              times.push(`Hace ${Math.floor(milisegundo)} milisegundos`); //Hacemos un push a una variable vacía para recopilar la información. Recordar que el switch está dentro de una iteración por cada usuario.
-              console.log(`Hace ${Math.floor(milisegundo)} milisegundos`);
-              break;
-            case milisegundo < 60000:
-              times.push(`Hace ${Math.floor(segundo)} segundos`);
-              console.log(`Hace ${Math.floor(segundo)} segundos`);
-              break;
-            case milisegundo < 3600000:
-              times.push(`Hace ${Math.floor(minuto)} minutos`);
-              console.log(`Hace ${Math.floor(minuto)} minutos`);
-              break;
-            case milisegundo < 86400000:
-              times.push(`Hace ${Math.floor(hora)} horas`);
-              console.log(`Hace ${Math.floor(hora)} horas`);
-              break;
-            case milisegundo < 604800000:
-              times.push(`Hace ${Math.floor(day)} días`);
-              console.log(`Hace ${Math.floor(day)} días`);
-              break;
-            case milisegundo < 2592000000:
-              times.push(`Hace ${Math.floor(week)} semanas`);
-              console.log(`Hace ${Math.floor(week)} semanas`);
-              break;
-            case milisegundo < 31104000000:
-              times.push(`Hace ${Math.floor(month)} meses`);
-              console.log(`Hace ${Math.floor(month)} meses`);
-              break;
-            default:
-              times.push(`Hace ${Math.floor(year)} años`);
-              console.log(`Hace ${Math.floor(year)} años`);
-          }        
+          getTimeDate(milisegundo, segundo, minuto, hora, day, week, month, year, times);
         }
-        /* console.log(rgb); */
-        console.log(times);
-      
         res.render('clan.ejs', { clan: {datosClan}, color: rgb, hostUser, times });
 /*         res.send({ clan: {datosClan}, color: rgb }); */
       });
@@ -257,24 +294,3 @@ app.get('/clan', (req, res) =>{
 app.listen(3000, () => {
   console.log('Servidor iniciado en el puerto 3000');
 });
-
-
-/* switch (clan.datosClan.memberList[i].role) {
-  case 'coLeader':
-    Colíder
-    break;
-
-  case 'leader':
-    Líder
-    break;
-    
-  case 'elder':
-    Veterano
-    break;
-  
-  case 'member':
-    Miembro
-    break;
-}
-
-<p> <%= clan.datosClan.memberList[i].role %> </p> */

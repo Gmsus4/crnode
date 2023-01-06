@@ -4,7 +4,8 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title><%= player.name %></title>
+    <link rel="shortcut icon" type="image/png" href="<%= player.currentFavouriteCard.iconUrls.medium.replace(/['"]/g, '');%>">
     <link rel="stylesheet" href="player.css">
     <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;500&display=swap" rel="stylesheet">
     <style>
@@ -39,10 +40,9 @@
                     </div>
                 </div>
                 
-                <div class="created">
-                    <img src="../img/calendario.png" alt="" class="w30">
-                    <% const years = player.badges[0].progress / 365 %>
-                    <p>Jugando desde hace <%= Math.floor(years) %> años</p>
+                <div class="lastTime">
+                    <img src="https://cdn.statsroyale.com/images/clock.png" alt="" class="w30">
+                    <p>Última conexión: <%= lastTime[0] %></p>
                 </div>
     
                 <p class="titleP">Trofeos</p>
