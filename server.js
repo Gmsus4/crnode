@@ -82,7 +82,7 @@ app.get('/search', (req, res) => {
       const currentDeck = datosJugador.currentDeck;
       const clanId = datosJugador.clan.tag.slice(1);
 
-      console.log(clanId);
+      /* console.log(clanId); */
 
       for(let arena in arenas){
         if(arenas[arena].name === datosJugador.arena.name){
@@ -182,7 +182,7 @@ app.get('/search', (req, res) => {
                       i += size;
                     }
                     str = (`${arr[0]}-${arr[1]}-${arr[2]}:${arr[3]}:${arr[4]}${arr[5]}`);
-                    console.log(str);
+                    /* console.log(str); */
 
                     //Ojo, que volvimos a repetir código. Pero no encontré otra manera de simplificar el código, ya será en otra ocasión
                     let lastSeen = new Date(str);
@@ -199,7 +199,7 @@ app.get('/search', (req, res) => {
                     getTimeDate(milisegundo, segundo, minuto, hora, day, week, month, year, lastTime);
                   }
                 }
-                console.log(lastTime[0]);
+                /* console.log(lastTime[0]); */
                 // Aquí se envía la respuesta con los datos del jugador y los cofres por venir
                 res.render('data.ejs',{
                   cofresPorVenir: {chestUrlSorted, upcomingChests},
