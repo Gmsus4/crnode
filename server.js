@@ -223,7 +223,20 @@ app.get("/search", function(req, res) {
       }
     });
   } else if (searchType === "clan") {
-    res.render('pruebaClan.ejs', {query});
+    const clanName = req.query.query;
+    request(`https://api.clashroyale.com/v1/clans?name=${clanName}`,{
+      headers: {
+        Authorization: `Bearer ${API_KEY}`
+      }
+    }, (error, response, body) => {
+      if (error){
+        console.error(error);
+      } else{
+        const searchClan = JSON.parse(body);
+        /* console.log(searchClan); */
+        res.render('searchClan.ejs', {query, searchClan, hostClan});
+      }
+    })
   } else if (searchType === "clanById") {
     const clanId = req.query.query;
     request(`https://api.clashroyale.com/v1/clans/%23${clanId}`, {

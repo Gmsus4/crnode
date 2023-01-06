@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mi página de Clash Royale</title>
+    <link rel="stylesheet" href="player.css">
+    <link rel="stylesheet" href="clan.css">
+    <link rel="stylesheet" href="search.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="searchClan.css">
+    <style>
+        .container-header{
+            width: 100%;
+            height: 380px;
+            background-size: contain;
+            background-position: center;
+            box-shadow: rgba(0, 0, 0, 0.1) 0px 10px 50px; box-shadow: rgba(50, 50, 93, 0.25) 0px 50px 100px -20px, rgba(0, 0, 0, 0.3) 0px 30px 60px -30px;
+        }
+        .subTitle{
+            font-weight: bold;
+            color: #233d4d;
+        }
+    </style>
+</head>
+<body>
+    <div class="container-header">
+        <div class="search">
+            <form action="/search" method="GET">
+                <div class="search-bar">
+                    <select name="searchType" id="search-type">
+                        <option value="clan">Clan</option>
+                    </select>
+                    <input type="text" id="query" name="query" placeholder="Ingresa el nombre del clan" value="<%= query %>">
+                    <button type="submit">
+                        <img src="../img/buscar.png" alt="">
+                    </button>
+                </div>
+            </form> 
+        </div>
+        <div class="main">
+            <div class="title">
+                <h2>Resultados de la búsqueda</h2>
+            </div>
+            <div class="containerMain">
+                <p class="subTitle">Clan</p>
+                <p class="subTitle">Trofeos</p>
+                <p class="subTitle">Miembros</p>
+                <p class="subTitle">Ubicación</p>
+                <% for(let i in searchClan.items){ %>
+                    <div>
+                        <img src="https://cdn.statsroyale.com/images/badges/<%= searchClan.items[i].badgeId %>.png" alt="">
+                        <a href="<%= hostClan %><%= searchClan.items[i].tag.slice(1) %>">
+                            <p><%= searchClan.items[i].name %></p>
+                        </a>
+                    </div>
+                    
+                    <div>
+                        <img src="https://cdn.statsroyale.com/images/trophy.png" alt="">
+                        <p><%= searchClan.items[i].clanScore %></p>
+                    </div>
+                    <p><%= searchClan.items[i].members %></p>
+                    <div>
+                        <img src="https://cdn.statsroyale.com/images/flags/<%= searchClan.items[i].location.id %>.png" alt="">
+                        <p><%= searchClan.items[i].location.name %></p>
+                    </div>  
+                <% } %>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
