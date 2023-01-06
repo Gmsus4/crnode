@@ -3,9 +3,11 @@
     margin: 0;
     box-sizing: border-box;
 }
+
 body{
     color: black;
     background-color: white;
+    font-family: 'Plus Jakarta Sans', sans-serif;
 }
 
 .header{

@@ -5,14 +5,36 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Mi página de Clash Royale</title>
+    <link rel="stylesheet" href="search.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;500&display=swap" rel="stylesheet">
 </head>
 <body>
-    <h1>Información del jugador</h1>
+    <div class="search">
+        <div>
+            <h1>Buscador de Clash Royale</h1>
+            <img src="../img/Bandit_card_render.png" alt="" class="banner">
+            <form action="/search" method="GET">
+                <div class="search-bar">
+                    <select name="searchType" id="search-type">
+                        <option value="player">Jugador</option>
+                        <option value="clan">Clan</option>
+                        <option value="clanById">Clan ID</option>
+                    </select>
+                    <input type="text" id="query" name="query" placeholder="Ingresa la ID sin el #">
+                    <button type="submit">
+                        <img src="../img/buscar.png" alt="">
+                    </button>
+                </div>
+            </form> 
+        </div>
+    </div>
 
-    <form action="/search" method="GET">
+
+
+<!--     <form action="/search" method="GET">
         <label for="player-id">Ingresa la ID del jugador:</label><br>
         <input type="text" id="player-id" name="playerId"><br><br>
         <input type="submit" value="Buscar">
-    </form> 
+    </form>  -->
 </body>
 </html>
