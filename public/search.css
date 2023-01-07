@@ -54,6 +54,11 @@ form{
     gap: 30px;
 }
 
+.search-txt-btn{
+    display: flex;
+    align-items: center;
+}
+
 .search-bar input[type="text"]{
     border: none;
     font-size: 18px;
@@ -96,4 +101,74 @@ button img{
     color: gray;
     font-weight: lighter;
 }
-  
+
+@media (max-width: 603px){
+    .search{
+        height: auto;
+    }
+
+    h1{
+        margin: 15px;
+        font-size: 20px;
+        text-align: center;
+        padding: 5px 35px;
+    }
+
+    .search div .banner{
+        display: none;
+    }
+
+    #search-type{
+        text-align: center;
+    }
+
+    .search-bar{
+        display: grid;
+        grid-template-columns: 1fr;
+        grid-template-rows: auto;
+        height: auto;
+        justify-items: start;
+        box-shadow: none;
+        gap: 10px;
+    }
+
+    .search-txt-btn{
+        display: flex;
+        gap: 10px;
+    }    
+
+    select {
+        margin-left: 0;
+    }
+
+    .search-bar input[type="text"]{
+        border: none;
+        font-size: 18px;
+        outline: none;
+        text-align: center;
+        box-shadow: rgba(0, 0, 0, 0.15) 0px 2px 8px;
+        border-radius: 50px;
+        padding: 10px 20px;
+    }
+
+    button{
+        width: 50px;
+        height: 50px;
+        margin: 0;
+    }
+
+    button img{
+        width: 80%;
+        height: auto;
+    }
+}
+
+@media (max-width: 350px){
+    .search-txt-btn{
+        flex-direction: column;
+    }
+
+    .search-bar{
+        justify-items: center;
+    }
+}

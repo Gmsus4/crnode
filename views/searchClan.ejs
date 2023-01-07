@@ -43,7 +43,7 @@
             <div class="title">
                 <h2>Resultados de la búsqueda</h2>
             </div>
-            <div class="containerMain">
+            <div class="containerMain pc">
                 <p class="subTitle">Clan</p>
                 <p class="subTitle">Trofeos</p>
                 <p class="subTitle">Miembros</p>
@@ -60,11 +60,38 @@
                         <img src="https://cdn.statsroyale.com/images/trophy.png" alt="">
                         <p><%= searchClan.items[i].clanScore %></p>
                     </div>
-                    <p><%= searchClan.items[i].members %></p>
+                    <p><%= searchClan.items[i].members %>/50</p>
                     <div>
                         <img src="https://cdn.statsroyale.com/images/flags/<%= searchClan.items[i].location.id %>.png" alt="">
                         <p><%= searchClan.items[i].location.name %></p>
                     </div>  
+                <% } %>
+            </div>
+
+            <div class="containerMain responsive">
+                <% for(let i in searchClan.items){ %>
+                    <div class="cardClan">
+                        <div class="cardClanA">
+                            <div>
+                                <img src="https://cdn.statsroyale.com/images/badges/<%= searchClan.items[i].badgeId %>.png" alt="">
+                                <a href="<%= hostClan %><%= searchClan.items[i].tag.slice(1) %>">
+                                    <p><%= searchClan.items[i].name %></p>
+                                </a>
+                            </div>
+                            <p><%= searchClan.items[i].members %>/50</p>
+                        </div>
+                        <div class="cardClanB">
+                            <div>
+                                <img src="https://cdn.statsroyale.com/images/trophy.png" alt="">
+                                <p><%= searchClan.items[i].clanScore %></p>
+                            </div>
+        
+                            <div>
+                                <img src="https://cdn.statsroyale.com/images/flags/<%= searchClan.items[i].location.id %>.png" alt="">
+                                <p><%= searchClan.items[i].location.name %></p>
+                            </div>  
+                        </div>
+                    </div>
                 <% } %>
             </div>
         </div>

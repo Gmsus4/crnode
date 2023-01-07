@@ -10,12 +10,64 @@
 }
 
 .containerMain{
-    display: grid;
     grid-template-columns: repeat(4, auto);
-    grid-template-rows: auto;
-    gap: 20px 35px;
-    padding: 25px 70px;
-    border-radius: 50px;
-    box-shadow: rgba(0, 0, 0, 0.19) 0px 10px 20px, rgba(0, 0, 0, 0.23) 0px 6px 6px;
-    margin-bottom: 80px;
+}
+
+.responsive{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    width: 90%;
+    box-shadow: none;
+    padding: 0;
+    margin: 0 auto;
+    display: none;
+}
+
+.responsive .cardClan{
+    width: 100%;
+    box-shadow: rgba(0, 0, 0, 0.15) 0px 3px 3px 0px;
+/*     background-color: thistle; */
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    padding: 10px;
+    border-radius: 20px;
+}
+
+.responsive .cardClan .cardClanA{
+    align-items: flex-start;
+}
+
+.responsive .cardClan .cardClanB{
+    align-items: flex-end;
+}
+
+.responsive .cardClan .cardClanA,
+.responsive .cardClan .cardClanB{
+    display: flex;
+    flex-direction: column;
+}
+
+@media (max-width: 803px){
+    .pc{
+        display: none;
+    }
+    .responsive{
+        display: flex;
+    }
+
+    .main .title{
+        font-size: 16px;
+    }
+
+    form .search-bar{
+        justify-items: center;
+    }
+}
+
+@media (max-width: 340px){
+    .responsive .cardClan .cardClanB:nth-child(2) p{
+        display: none;
+    }
 }
