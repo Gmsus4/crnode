@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mi página de Clash Royale</title>
+    <link rel="stylesheet" href="search.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;500&display=swap" rel="stylesheet">
+    <style>
+        .search{
+            height: 100vh;
+        }
+        .container{
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            justify-content: center;
+            gap: 20px;
+            margin: 20px;
+            padding: 20px;
+            border-radius: 20px;
+            box-shadow: rgba(0, 0, 0, 0.15) 0px 3px 3px 0px;
+            background-color: rgba(255, 255, 255,0.8);
+            position: relative;
+        }
+
+        .container img{
+            position: absolute;
+            top: 0;
+            bottom: 0;
+        }
+
+        .search a{
+            text-decoration: none;
+            color: white;
+            font-weight: bold;
+            background-color: #2bb0cf;
+            padding: 10px 25px;
+            border-radius: 20px;
+            outline: 1px solid transparent;
+        }
+
+        .search a:hover{
+            color: #2bb0cf;
+            background-color: white;
+            outline: 1px solid #2bb0cf;
+        }
+    </style>
+</head>
+<body>
+    <div class="search">
+        <h1><%= h1 %></h1>
+        <div class="container">
+            <p><%= p %></p>
+
+            <div>
+                <p>Recuerda que en el buscador no debes poner el #, ya que por defecto ya viene incluido</p>
+            </div>
+            <div>
+                <p>Los ID solo pueden contener los siguientes caracteres:</p>
+                <p>Números 0, 2, 8, 9</p>
+                <p>Letras P, Y, L, Q, G, R, J, C, U, V</p>
+            </div>
+            <img src="../img/valkiria.png" alt="" class="banner">
+        </div>
+        <a href="<%= home %>">Buscar de nuevo</a>
+    </div>
+</body>
+</html>

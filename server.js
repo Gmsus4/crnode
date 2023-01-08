@@ -15,6 +15,7 @@ const hostClanOld = 'http://localhost:3000/clan?id=';
 const hostUserOld = 'http://localhost:3000/search?playerId=';
 const hostUser = 'http://localhost:3000/search?searchType=player&query='
 const hostClan = 'http://localhost:3000/search?searchType=clanById&query=';
+const home = 'http://localhost:3000/';
 
 app.use(express.static('public'));
 
@@ -78,8 +79,23 @@ app.get("/search", function(req, res) {
         Authorization: `Bearer ${API_KEY}`
       }
     }, (error, response, body) => {
-      if (error) {
-        console.error(error);
+      if (response.statusCode !== 200) {
+        console.error(`Error: ${response.statusCode}`);
+
+        const regex = /^[028989PYLQGRCUV]+$/;
+        if (regex.test(playerId)) {
+          const h1 = '¡No encontramos el perfil!';
+
+          const p = 'Este perfil no existe actualmente en nuestro sistema.';
+          res.render('error.ejs', {h1, p, home});
+          // El string cumple con el patrón
+        } else {
+          const h1 = 'ID proporcionado inválido';
+          const p ='Has incluido caracteres no válidos en tu ID';
+          res.render('error.ejs', {h1, p, home});
+
+          // El string no cumple con el patrón
+        }
       } else {
         let urlHero = [];
         let urlArena = [];
