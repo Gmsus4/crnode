@@ -10,6 +10,10 @@ body{
     font-family: 'Plus Jakarta Sans', sans-serif;
 }
 
+.container-header{
+    height: 380px;
+}
+
 .header{
     width: 100%;
     justify-content: space-around;
@@ -182,3 +186,117 @@ body{
     gap: 20px 40px;
 }
 
+.displayMobile{
+    display: none;
+}
+
+@media (max-width: 950px){
+
+    .main .displayMobile{
+        display: grid;
+        padding: 30px;
+    }
+
+    .midStats{
+        margin-bottom: 10px;
+    }
+    .midStats_container{
+        flex-direction: column;
+    }
+
+    .display{
+        display: none;
+    }
+    .containerMain{
+        grid-template-columns: 1fr;
+        padding: 30px;
+        width: 90%;
+    }
+    .containerMain .containerUser{
+        display: flex;
+        justify-content: space-between;
+        border: 1px solid rgba(0, 0, 0, 0.19);
+        padding: 5px 10px;
+        border-radius: 20px;
+    }
+    .container-header{
+        height: auto;
+    }
+    .header{
+        height: auto;
+    }
+    .clanData{
+        flex-direction: column;
+        gap: 0;
+    }
+    .clanData .badges img{
+        width: 100%;
+    }
+
+    .members{
+        margin: 10px;
+    }
+
+    .location{
+        justify-content: center;
+    }
+    .clanData .location h2{
+        font-size: 30px;
+    }
+
+    .containerUser .clanA{
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .clanA .tagName,
+    .clanA .otherStats,
+    .containerUser .clanB{
+        gap: 15px;
+    }
+
+    .clanData div:nth-child(2){
+        /* background-color: #233d4d; */
+        width: 90%;
+    }
+}
+
+@media (max-width: 600px){
+    .metrics .card img{
+        display: none;
+    }
+
+    .metrics .card{
+        text-align: center;
+    }
+
+    .midStats{
+        padding: 20px;
+    }
+
+    .containerMain{
+        padding: 5px;
+        width: 100%;
+        border-radius: 0px;
+    }
+
+    .clanData div:nth-child(2){
+        /* background-color: #233d4d; */
+        width: 90%;
+    }
+
+    .clanA .otherStats div:nth-child(2){
+        display: none;
+    }
+
+    .main .containerMain p{
+        font-size: 12px;
+    }
+}
+
+@media (max-width: 370px){
+    .midStats{
+        border-radius: 0;
+    }
+}
