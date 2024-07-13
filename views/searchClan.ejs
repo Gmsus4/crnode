@@ -30,7 +30,7 @@
             <form action="/search" method="GET">
                 <div class="search-bar">
                     <select name="searchType" id="search-type">
-                        <option value="clan">Clan</option>
+                        <option value="clan">Clan</option> <!-- Podemos agregar las demás opciones, no afectaría la código, sería otra búsqueda más. -->
                     </select>
                     <input type="text" id="query" name="query" placeholder="Ingresa el nombre del clan" value="<%= query %>">
                     <button type="submit">
@@ -51,7 +51,7 @@
                 <% for(let i in searchClan.items){ %>
                     <div>
                         <img src="https://cdn.statsroyale.com/images/badges/<%= searchClan.items[i].badgeId %>.png" alt="">
-                        <a href="<%= hostClan %><%= searchClan.items[i].tag.slice(1) %>">
+                        <a href="<%= hostClan %><%= searchClan.items[i].tag.slice(1) %>"> <!-- Aquí me quedé -->
                             <p><%= searchClan.items[i].name %></p>
                         </a>
                     </div>

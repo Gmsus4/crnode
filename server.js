@@ -13,9 +13,16 @@ const exp = require('./data/exp');
 
 const hostClanOld = 'http://localhost:3000/clan?id=';
 const hostUserOld = 'http://localhost:3000/search?playerId=';
+
+//Para localhost:
 const hostUser = 'http://localhost:3000/search?searchType=player&query='
 const hostClan = 'http://localhost:3000/search?searchType=clanById&query=';
 const home = 'http://localhost:3000/';
+
+//Para dirección IP
+/* const hostUser = ''
+const hostClan = 'search?searchType=clanById&query=';
+const home = ''; */
 
 app.use(express.static('public'));
 
@@ -23,7 +30,7 @@ app.set('view engine', 'ejs');
 
 const API_KEYOLD = 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiIsImtpZCI6IjI4YTMxOGY3LTAwMDAtYTFlYi03ZmExLTJjNzQzM2M2Y2NhNSJ9.eyJpc3MiOiJzdXBlcmNlbGwiLCJhdWQiOiJzdXBlcmNlbGw6Z2FtZWFwaSIsImp0aSI6IjcxMTY4MmUzLTg0N2YtNGU5My1hMWM5LTE4MmIzYWIyMzMxYyIsImlhdCI6MTY3MjUyNDAzNCwic3ViIjoiZGV2ZWxvcGVyL2Y4ZTk0YzYwLWQwNjItNTQ4YS1lNTJkLTM3ZDRiZTFhMDc5MSIsInNjb3BlcyI6WyJyb3lhbGUiXSwibGltaXRzIjpbeyJ0aWVyIjoiZGV2ZWxvcGVyL3NpbHZlciIsInR5cGUiOiJ0aHJvdHRsaW5nIn0seyJjaWRycyI6WyIxODcuMjExLjIwMC43IiwiNDUuNzkuMjE4Ljc5IiwiMTI4LjEyOC4xMjguMTI4Il0sInR5cGUiOiJjbGllbnQifV19.2xR8Qyr0J3CBzoRatEihWribfiD8HZ59kcfRcIJKqfjie-PU8QvZn2rq2DZ2y2bmdBLzDL0ioGfandXms6zgsA';
 
-const API_KEY = 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiIsImtpZCI6IjI4YTMxOGY3LTAwMDAtYTFlYi03ZmExLTJjNzQzM2M2Y2NhNSJ9.eyJpc3MiOiJzdXBlcmNlbGwiLCJhdWQiOiJzdXBlcmNlbGw6Z2FtZWFwaSIsImp0aSI6ImJmNTYwMTNhLWZjZmYtNGFiZi05OGI4LTNjMTNkMDIxMGU5ZiIsImlhdCI6MTY3Mjc4MDYwMiwic3ViIjoiZGV2ZWxvcGVyL2Y4ZTk0YzYwLWQwNjItNTQ4YS1lNTJkLTM3ZDRiZTFhMDc5MSIsInNjb3BlcyI6WyJyb3lhbGUiXSwibGltaXRzIjpbeyJ0aWVyIjoiZGV2ZWxvcGVyL3NpbHZlciIsInR5cGUiOiJ0aHJvdHRsaW5nIn0seyJjaWRycyI6WyIxODcuMjExLjE5NC42MiJdLCJ0eXBlIjoiY2xpZW50In1dfQ.k7u0ZANYbusrhkiI9LhxWzSrbmNlUJY3MUmL1oMQ7F7gUxsR3NPvaDcqvdFv7pN0Suw61yd_2XDJPKMNovlrOg';
+const API_KEY = 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiIsImtpZCI6IjI4YTMxOGY3LTAwMDAtYTFlYi03ZmExLTJjNzQzM2M2Y2NhNSJ9.eyJpc3MiOiJzdXBlcmNlbGwiLCJhdWQiOiJzdXBlcmNlbGw6Z2FtZWFwaSIsImp0aSI6ImViMTE2NjNjLWRlOWUtNGQzZC05MjQyLWU5M2I1MThlM2M4ZiIsImlhdCI6MTcyMDkwMzQxNiwic3ViIjoiZGV2ZWxvcGVyL2Y4ZTk0YzYwLWQwNjItNTQ4YS1lNTJkLTM3ZDRiZTFhMDc5MSIsInNjb3BlcyI6WyJyb3lhbGUiXSwibGltaXRzIjpbeyJ0aWVyIjoiZGV2ZWxvcGVyL3NpbHZlciIsInR5cGUiOiJ0aHJvdHRsaW5nIn0seyJjaWRycyI6WyIxODcuMjExLjIwNi4xNjgiXSwidHlwZSI6ImNsaWVudCJ9XX0.FxB_lTnWgohA2CjVITrtglkLtexzQ_a0Wb7MqjZ7r_F3QbUn-40BuYMoc7X0O-vqJM2o8pT_MpqtNDBFEBW6TA';
 
 function getTimeDate(ml,s,min,hrs,day,week,month,year,data){
   //Para saber dependiendo los milisegundos tenemos esta lógica, pues si los milisegundos son menores a ... podemos saber si el tiempo ausente es de segundos o hasta meses.
@@ -66,6 +73,10 @@ app.get('/', (req, res) =>{
     res.render('index');
 })
 
+/* 187.211.200.7
+45.79.218.79
+128.128.128.128 */
+
 app.get("/search", function(req, res) {
   // req.query = { searchType: 'clan', query: 'Perro' }
   const searchType = req.query.searchType; //El método a utilizar, sea buscar por clan id, clan o id de usuario
@@ -100,41 +111,41 @@ app.get("/search", function(req, res) {
         let urlHero = [];
         let urlArena = [];
         let urlCurrentDeck = [];
-        const datosJugador = JSON.parse(body);
-        const currentFavouriteCard = datosJugador.currentFavouriteCard.name;
-        const currentDeck = datosJugador.currentDeck;
-        const clanId = datosJugador.clan.tag.slice(1);
+        const datosJugador = JSON.parse(body); /* Todo el cuerpo (datos) del jugador buscado */
+        const currentFavouriteCard = datosJugador.currentFavouriteCard.name; /* Nombre de la carta favorita recurrente del jugador */
+        const currentDeck = datosJugador.currentDeck; /* Todas las cartas del mazo recurrente del jugador */
+        const clanId = datosJugador.clan.tag.slice(1); /* Obtiene el tag del jugador sin el # */
   
         /* console.log(clanId); */
   
-        for(let arena in arenas){
-          if(arenas[arena].name === datosJugador.arena.name){
+        for(let arena in arenas){ /* En la base de datos de arena va a iterar cada uno */
+          if(arenas[arena].name === datosJugador.arena.name){ /* Si el nombre de la primer arena coincide con el nombre de la arena del jugador entonces... */
   /*           console.log(arenas[arena].url); */
-            urlArena.push(arenas[arena].url);
+            urlArena.push(arenas[arena].url);/* Agregamos la url específica al array. que coincidió para luego ser utilizada */
           }
         }
         
-        // Aquí iría tu lógica para procesar los datos del jugador
         for(let seed in seeds){ //Itera el formato JSON el seed será el valor iterado, es decir, cuantas veces se iteró
-          if(seeds[seed].name === currentFavouriteCard){
-            urlHero =  `https://cdn.statsroyale.com/images/characters/${seeds[seed].key}.jpg`;
+          if(seeds[seed].name === currentFavouriteCard){ //En la base de datos de la seeds, busca el name y comparalo con el nombre de la carta favorita recurrente del jugador
+            urlHero =  `https://cdn.statsroyale.com/images/characters/${seeds[seed].key}.jpg`; /* Al coincidir, obtendremos la key para agregarla a la url */
                 for (let i = 0; i < seeds.length; i++) {
                   for (let j = 0; j < currentDeck.length; j++) {
-                      if (seeds[i].name === currentDeck[j].name) {
-                          urlCurrentDeck.push(`https://cdn.statsroyale.com/images/cards/full/${seeds[i].key}.png`);
+                      if (seeds[i].name === currentDeck[j].name) { //Itera todas la veces el nombre de todas las cartas del juego y si el nombre conincide con el de la carta del mazo (Itera todas las cartas del mazo del jugador que son 8)entonces...
+                        //Primero va ir iterando el mazo (currenDeck[j].name) y luego va ir iterando las cartas totales del juego (Seeds[i].name)
+                          urlCurrentDeck.push(`https://cdn.statsroyale.com/images/cards/full/${seeds[i].key}.png`);// Agrega las 8 url de las imágenes de las cartas del mazo
                         }
                   }
                 }
           }
         }
   
-        let dataUrl = {
+        let dataUrl = { //Agrega la información a una variable valor objeto para después ser utilizada en las plantillas ejs.
           imgCards: urlCurrentDeck, 
           imgBanner: urlHero,
           imgArena: urlArena
         }
   
-        /* EXP */
+        /* EXP ----------------------------------------------------------------------------------------------------------------------------------- */
         let maxXp = 0; // Nivel máximo de XP
   
   /*       Comparación de xp para poder saber el la experiencia máxima dependiendo su nivel */
@@ -147,16 +158,16 @@ app.get("/search", function(req, res) {
   
         const currentXp = datosJugador.expPoints; // XP actual
       
-        const widthProgress = ((currentXp / maxXp) * 100).toFixed(2) + '%';
+        const widthProgress = ((currentXp / maxXp) * 100).toFixed(2) + '%'; //El progreso de la xp en porcentaje
   
         const dataExp = {
-            width: widthProgress,
-            user: userLevel,
-            max: maxXp
+            width: widthProgress, //Progreso de la xp en porcentaje
+            user: userLevel, //Nivel del jugador
+            max: maxXp //Nivel Máximo
         }
   
-        /* Cofres */      
-        request(`https://api.clashroyale.com/v1/players/%23${playerId}/upcomingchests`, {
+        /* Cofres -------------------------------------------------------------------------------------------------------------------------------------------- */      
+        request(`https://api.clashroyale.com/v1/players/%23${playerId}/upcomingchests`, { //Obtener los cofres siguientes
           headers: {
             Authorization: `Bearer ${API_KEY}`
           }
@@ -164,24 +175,26 @@ app.get("/search", function(req, res) {
           if (error) {
             console.error(error);
           } else {
-            const urlChest = [];
+            const urlChest = []; //Una lista de los url y el valor de los index de los cofres por venir (Esto después de hacerle el push)
             const upcomingChests = JSON.parse(body);
   
-            for (let i = 0; i < chests.length; i++) {
-              for (let j = 0; j < upcomingChests.items.length; j++) {
-                  if (chests[i].name === upcomingChests.items[j].name) {
+            for (let i = 0; i < chests.length; i++) { /* Itera todos los cofres del juego (Obtenidos en partidas ganadas)*/
+              for (let j = 0; j < upcomingChests.items.length; j++) { //Itera todos los cofres por venir que muestra el body de la petición
+                  if (chests[i].name === upcomingChests.items[j].name) {// Si coinciden los nombres...
   /*                     urlChest.push(chests[i].url); */
-                      urlChest.push({url: chests[i].url, index: upcomingChests.items[j].index});
+                      urlChest.push({url: chests[i].url, index: upcomingChests.items[j].index}); /* Inyecta la información a la variable urlChest para almacenarla */
                     }
               }
             }
+
   
+            //Reordenar todo la información de los cofres, la url y el id
             let filterArray = urlChest.filter(item => typeof item === 'object' && //Filtrar el array para mantener los objetos con propiedad "index"
             item.hasOwnProperty('index'));
-            let sortedArray = filterArray.sort((a, b) => a.index - b.index);
-            let chestUrlSorted = sortedArray.map(item => item.url);
+            let sortedArray = filterArray.sort((a, b) => a.index - b.index);//Ordena de menor a mayor las propiedades del index
+            let chestUrlSorted = sortedArray.map(item => item.url); //Solo muestra las url ya en ese orden
   
-            request(`https://api.clashroyale.com/v1/clans/%23${clanId}`,{
+            request(`https://api.clashroyale.com/v1/clans/%23${clanId}`,{ //Clan id lastSeen-------------------------------------------------------------
               headers: {
                 Authorization: `Bearer ${API_KEY}`
               }
@@ -260,8 +273,23 @@ app.get("/search", function(req, res) {
         Authorization: `Bearer ${API_KEY}`
       }
     }, (error, response, body) => {
-      if (error) {
-        console.error(error);
+      if (response.statusCode !== 200) {
+        console.error(`Error: ${response.statusCode}`);
+
+        const regex = /^[028989PYLQGRCUV]+$/;
+        if (regex.test(clanId)) {
+          const h1 = '¡No encontramos el perfil!';
+
+          const p = 'Este perfil no existe actualmente en nuestro sistema.';
+          res.render('error.ejs', {h1, p, home});
+          // El string cumple con el patrón
+        } else {
+          const h1 = 'ID proporcionado inválido';
+          const p ='Has incluido caracteres no válidos en tu ID';
+          res.render('error.ejs', {h1, p, home});
+
+          // El string no cumple con el patrón
+        }
       } else {
         const datosClan = JSON.parse(body);
         const idClanBadges = datosClan.badgeId;
@@ -281,13 +309,13 @@ app.get("/search", function(req, res) {
           }
   
   
-          const lastSeenClan = datosClan.memberList;
+          const memberList = datosClan.memberList;
           const listMod = []; //Lista de la última conexión de los jugadores. Sin validacion en el formato
           const listOk = []; //Lista de la última conexión de los jugadores pero la que tiene validación
           let times = []; //Lista original con el tiempo en vivo sobre la última conexión de los jugadores
   
-          for(let last in lastSeenClan){ //Iteración de la última conexión de todos los jugadores
-            listMod.push(lastSeenClan[last].lastSeen); //Agregamos a la lista la última conexión de todos los jugadores (Sin validacion en el formato)
+          for(let user in memberList){ //Iteración de la última conexión de todos los jugadores
+            listMod.push(memberList[user].lastSeen); //Agregamos a la lista la última conexión de todos los jugadores (Sin validacion en el formato)
           }
   
           for(let list in listMod){ //Iteramos esa lista nueva que creamos
@@ -330,7 +358,7 @@ app.get("/search", function(req, res) {
   }
 });
 
-app.get('/clan', (req, res) =>{
+app.get('/clan', (req, res) =>{ //Este código no hace falta
   const clanId = req.query.id;
   request(`https://api.clashroyale.com/v1/clans/%23${clanId}`, {
     headers: {

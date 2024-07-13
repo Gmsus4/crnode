@@ -117,7 +117,7 @@
 
     <div class="main"> <!-- Es el mismo código, pero ahora cambia dependiendo el tamaño en pantalla, cambia de stats a main -->
         <div class="mainStats"> <!-- Posible nombre en espera -->
-            <div class="clan">
+            <div class="clan"> <!-- Sección -------------- -->
                 <div class="clanContainer">
                     <div class="clanImg">
                         <% if(player.clan === undefined){ %>
@@ -146,7 +146,7 @@
                 <p class="p"><%= player.arena.name %></p>
             </div>
         </div>
-        <div class="currentDeck">
+        <div class="currentDeck"> <!-- Sección -------------- -->
             <div class="currentDeckTitle">
                 <p class="p">Current deck</p>
                 <p>Carta favorita actual — <%= player.currentFavouriteCard.name %></p>
@@ -157,7 +157,7 @@
                 <% } %>  
             </div>
         </div>
-        <div class="upcomingchests">
+        <div class="upcomingchests"> <!-- Sección -------------- -->
             <div class="upcomingchestsTitle">
                 <p class="p">Próximos Cofres</p>
             </div>
